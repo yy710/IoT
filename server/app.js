@@ -41,7 +41,7 @@ app.use(function (req, res, next) {
 
     //define req.data
     req.data = {};
-    req.data.sid = req.query.sid || null;
+    req.data.sid = req.query.sid || 0;
 
     next();
 });
