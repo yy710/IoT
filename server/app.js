@@ -6,13 +6,13 @@ let https = require('https');
 let fs = require('fs');
 let express = require('express');
 let app = express();
-let location = require('./location.js').location;
+//let location = require('./location.js').location;
 let EventProxy = require('eventproxy');
-let weapp = require('./common.js').weapp;
-let order = require('./order.js').order;
-let passenger = require('./passenger.js').passenger;
+//let weapp = require('./common.js').weapp;
+//let order = require('./order.js').order;
+//let passenger = require('./passenger.js').passenger;
 let wechat = require('wechat');
-let session = require('./session.js').session;
+//let session = require('./session.js').session;
 let MongoClient = require('mongodb').MongoClient;
 let WechatAPI = require('wechat-api');
 
@@ -27,6 +27,11 @@ const sfrfConfig = {
     appsecret: 'ae25706cbb3e301c77d0c433e2dbbb06'
 };
 const xsxjMpConfig = {
+    token: 'nodejsForXsxjmp',
+    appid: 'wx977eb7e3ce0619c6',
+    appsecret: 'c7931d20dd605e4ef0d208c08e054285'
+};
+const nengzhuConfig = {
     token: 'nodejsForXsxjmp',
     appid: 'wx977eb7e3ce0619c6',
     appsecret: 'c7931d20dd605e4ef0d208c08e054285'
@@ -55,6 +60,16 @@ app.use('/weapptrip', wechat(tripConfig, function (req, res, next) {
     const message = req.weixin;
     console.log(message);//debug
 }));
+
+/**
+ * nengzhu IoT wechat server auth
+ */
+app.use('/iotServerAuth', wechat(nengzhuConfig, function(req, res, next){
+    // 微信输入信息都在req.weixin上
+    const message = req.weixin;
+    console.log(message);//debug
+}));
+
 
 /**
  * 司机端公众号服务器认证
@@ -93,16 +108,19 @@ app.use('/admin', express.static('admin'));
 //app.use('/sfrf', initDb('mongodb://yaoling:yyL0529@localhost:30000/sfrf'), routerSfrf);
 
 //小程序 API 路由
-let routerTrip = require('./trip.js').setRouter(express.Router());
-app.use('/trip', initDb('mongodb://travel:daydayUp@localhost:30000/trip'), routerTrip);
+//let routerTrip = require('./trip.js').setRouter(express.Router());
+//app.use('/trip', initDb('mongodb://travel:daydayUp@localhost:30000/trip'), routerTrip);
 
 //司机端公众号 API 路由
-let routerMp = require('./dispatch.js').setRouter(express.Router());
-app.use('/mp', initDb('mongodb://travel:daydayUp@localhost:30000/trip'), routerMp);
+//let routerMp = require('./dispatch.js').setRouter(express.Router());
+//app.use('/mp', initDb('mongodb://travel:daydayUp@localhost:30000/trip'), routerMp);
 
 //管理界面 API 路由
-let routerAdmin = require('./admin.js').setRouter(express.Router());
-app.use('/admin', initDb('mongodb://travel:daydayUp@localhost:30000/trip'), routerAdmin);
+//let routerAdmin = require('./admin.js').setRouter(express.Router());
+//app.use('/admin', initDb('mongodb://travel:daydayUp@localhost:30000/trip'), routerAdmin);
+
+let routerIoT = require('./iot.js').setRouter(express.Router());
+app.use('/iot', initDb('mongodb://iot:alwaysPrepare@localhost:30000/iot'), routerIoT);
 
 
 //---------------------------------------------------------------------------------------
@@ -140,8 +158,8 @@ function initDb(dbUrl) {
     return function (req, res, next) {
         MongoClient.connect(dbUrl, function (err, db) {
             assert.equal(null, err);
-            req.db = db;//deprecated
-            //req.data.db = db;//approve
+            //req.db = db;//deprecated
+            req.data.db = db;//approve
             next();
         });
     };
