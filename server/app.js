@@ -31,11 +31,7 @@ const xsxjMpConfig = {
     appid: 'wx977eb7e3ce0619c6',
     appsecret: 'c7931d20dd605e4ef0d208c08e054285'
 };
-const nengzhuConfig = {
-    token: 'nodejsForXsxjmp',
-    appid: 'wx977eb7e3ce0619c6',
-    appsecret: 'c7931d20dd605e4ef0d208c08e054285'
-};
+
 
 //全局路由
 app.use(function (req, res, next) {
@@ -56,15 +52,6 @@ app.use(function (req, res, next) {
  */
 app.use('/weapptrip', wechat(tripConfig, function (req, res, next) {
     //res.reply("weappTrip ok!");
-    // 微信输入信息都在req.weixin上
-    const message = req.weixin;
-    console.log(message);//debug
-}));
-
-/**
- * nengzhu IoT wechat server auth
- */
-app.use('/iotServerAuth', wechat(nengzhuConfig, function(req, res, next){
     // 微信输入信息都在req.weixin上
     const message = req.weixin;
     console.log(message);//debug
