@@ -1,6 +1,8 @@
 const net = require('net');
-const server = net.createServer();// 'connection' listener
+const server = net.createServer();
 
+let container = [];
+// 'connection' listener
 server.on('connection', (socket) => {
     console.log(socket.address());
 
@@ -17,6 +19,7 @@ server.on('connection', (socket) => {
     });
 
     socket.write('hello\r\n');
+    //container.push({keyid: 0, socket: socket});
     //socket.pipe(socket);
 
 });
