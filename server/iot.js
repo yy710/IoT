@@ -11,7 +11,8 @@ const server = net.createServer();
 let container = new Map();
 // 'connection' listener
 server.on('connection', (socket) => {
-    console.log(socket.address());
+    //debug
+    console.log(socket);
 
     server.getConnections((err, counts) => console.log("client connected, total counts: ", counts));
 
@@ -24,6 +25,12 @@ server.on('connection', (socket) => {
         let res = data.toString();
         console.log("recived: ", res);
         if (res.includes("end")) socket.end();
+
+        //check heartPacket, update stateMeching to mongoDB
+
+
+        //get keyID then add to stack
+
     });
 
     socket.on('error', (err)=>{
