@@ -58,13 +58,17 @@ server.listen(8124, () => {
 let wechat = require('wechat');
 const nengzhuConfig = {
     token: 'nengzhuIoT',
-    appid: 'wx8cdc02fdb60db8ed',
-    appsecret: '54a427d0eebeeba112a2a2015f27b512'
+    //appid: 'wx8cdc02fdb60db8ed',
+    //appsecret: '54a427d0eebeeba112a2a2015f27b512'
+    appid: 'wx2b31185490a27e64',
+    appsecret: '7d7cab5a3cae63a80c98dc3267843fa2'
 };
 
 exports.setRouter = function (router) {
 
     let _router = router;
+
+    _router.use('/weapp', wechat(nengzhuConfig, (req, res, next)=>{}));
 
     /**
      * nengzhu IoT wechat server auth
