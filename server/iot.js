@@ -68,6 +68,8 @@ exports.setRouter = function (router) {
 
     let _router = router;
 
+    //_router.use('/weapp', express.static('./'));
+
     _router.use('/weapp', wechat(nengzhuConfig, (req, res, next)=>{}));
 
     /**

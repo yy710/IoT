@@ -29,7 +29,7 @@ app.use(function (req, res, next) {
 });
 
 //静态路由
-//app.use('/images', express.static('images'));
+app.use('/iot/weapp', express.static('./'));
 //app.use('/admin', express.static('admin'));
 
 //管理界面 API 路由
