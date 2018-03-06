@@ -52,8 +52,8 @@ server.listen(port, function () {
     console.log('https server is running on port ', port);
 });
 
-http.createServer(app).listen(80, ()=>{
-   console.log('http server is running on port 80');
+http.createServer(app).listen(80, () => {
+    console.log('http server is running on port 80');
 });
 
 
